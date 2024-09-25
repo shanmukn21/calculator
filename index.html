@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        #mb {
+            height: 100vh;
+            display: grid;
+            gap: 0px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #calc {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 30px;
+            min-width: 325px;
+            max-width: fit-content;
+            background-color: rgb(25, 26, 28);
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            padding: 25px 8px 40px 8px;
+        }
+
+        body div div div {
+            justify-content: center;
+            align-items: center;
+            min-width: 70px;
+            min-height: 70px;
+            color: white;
+            display: flex;
+            flex-direction: row;
+        }
+
+        #screen {
+            background-color: rgb(25, 26, 28);
+            color: white;
+            max-height: 30px;
+            overflow-y: hidden;
+            overflow-x: hidden;
+            justify-content: right;
+            width: 285px;
+            border-radius: 4px;
+            padding: 0px 10px;
+            margin: 15px auto 20px auto;
+            max-width: 285px;
+        }
+
+
+        ::-webkit-scrollbar {
+            height: 0px;
+            width: 0px;
+        }
+
+        body div div div div {
+            margin: 4px;
+            border-radius: 50%;
+            background-color: rgb(60, 61, 63);
+        }
+
+        .opr {
+            color: white;
+            background-color: rgb(196, 125, 35);
+        }
+
+        #clr {
+            display: grid;
+            margin-right: 15px;
+            justify-self: right;
+            background-color: rgb(25, 26, 28);
+            max-width: 40px;
+            max-height: 20px;
+            min-width: 40px;
+            min-height: 20px;
+            border-radius: 30px;
+            padding: 4px;
+        }
+
+        #switch {
+            justify-self: right;
+            background-color: rgb(196, 125, 35);
+            min-width: 20px;
+            min-height: 20px;
+            max-width: 20px;
+            max-height: 20px;
+            border-radius: 50%;
+        }
+
+        .clr {
+            color: black;
+            background-color: rgb(129, 131, 133);
+        }
+    </style>
+</head>
+
+<body id="mbody">
+    <div id="mb">
+        <div id="clr" onclick="changet()">
+            <div id="switch"></div>
+        </div>
+        <div id="calc">
+                <div id="screen"></div>
+            <div>
+                <div class="num"
+                    onclick="screen.innerHTML+='7'">
+                    7</div>
+                <div class="num"
+                    onclick="screen.innerHTML+='8'">
+                    8</div>
+                <div class="num"
+                    onclick="screen.innerHTML+='9'">
+                    9</div>
+                <div onclick="screen.innerHTML+='+'"
+                    class="opr">+</div>
+            </div>
+            <div>
+                <div class="num"
+                    onclick="screen.innerHTML+='4'">
+                    4</div>
+                <div class="num"
+                    onclick="screen.innerHTML+='5'">
+                    5</div>
+                <div class="num"
+                    onclick="screen.innerHTML+='6'">
+                    6</div>
+                <div onclick="screen.innerHTML+='-'"
+                    class="opr">-</div>
+            </div>
+            <div>
+                <div class="num"
+                    onclick="screen.innerHTML+='1'">
+                    1</div>
+                <div class="num"
+                    onclick="screen.innerHTML+='2'">
+                    2</div>
+                <div class="num"
+                    onclick="screen.innerHTML+='3'">
+                    3</div>
+                <div onclick="screen.innerHTML+='*'"
+                    class="opr">x</div>
+            </div>
+            <div>
+                <div onclick="screen.innerHTML=''" class="clr">C</div>
+                <div class="num"
+                    onclick="screen.innerHTML+='0'">
+                    0</div>
+                <div onclick="result()" class="opr eql">=</div>
+                <div onclick="screen.innerHTML+='/'"
+                    class="opr">/</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        screen=document.getElementById('screen');
+        let n = 0;
+        var opr = document.getElementsByClassName('opr');
+        for (var i = 0; i < opr.length; i++) {
+            opr[i].addEventListener('click', () => {
+                n = 0;
+            });
+        }
+        var num = document.getElementsByClassName('num');
+        for (var i = 0; i < num.length; i++) {
+            num[i].addEventListener('click', () => {
+                if (n === 1) {
+                    screen.innerHTML = screen.innerHTML.slice(-1);
+                    n = 0;
+                }
+            });
+        }
+        var eql = document.querySelector('.eql');
+        eql.addEventListener('click', () => {
+            n = 1;
+        });
+        clr=document.querySelector('.clr');
+        function result() {
+            try {
+                let result = eval(screen.innerHTML);
+                screen.innerHTML = result;
+            } catch (error) {
+                screen.innerHTML = 'Syntax Error';
+                console.error('Error evaluating expression:', error);
+            }
+        }
+        mbody = document.getElementById("mbody");
+        sclr=document.getElementById('clr');
+        swtch=document.getElementById('switch');
+        function changet() {
+            if (mbody.style.backgroundColor === "rgb(66, 66, 66)") {
+                sclr.style.backgroundColor='rgb(25, 26, 28)';
+                swtch.style.justifySelf='right';
+                swtch.style.backgroundColor='rgb(196, 125, 35)';
+                mbody.style.backgroundColor = "white";
+                document.getElementById("calc").style.backgroundColor = "rgb(25, 26, 28)";
+                screen.style.backgroundColor = "rgb(25, 26, 28)";
+                screen.style.color='white';
+                for (var i = 0; i < num.length; i++) {
+                    num[i].style.borderRadius='50%';
+                    num[i].style.backgroundColor='rgb(60, 61, 63)';
+                    num[i].style.color='white';
+                }
+                for (var i = 0; i < opr.length; i++) {
+                    opr[i].style.borderRadius='50%';
+                    opr[i].style.backgroundColor='rgb(196, 125, 35)';
+                }
+                clr.style.borderRadius='50%';
+                clr.style.backgroundColor='rgb(129, 131, 133)';
+                clr.style.color='black';
+            } else {
+                sclr.style.backgroundColor='rgb(188, 188, 188';
+                swtch.style.justifySelf='left';
+                swtch.style.backgroundColor='rgb(67, 67, 67)';
+                mbody.style.backgroundColor = "rgb(66, 66, 66)";
+                document.getElementById("calc").style.backgroundColor = "#bcbcbc";
+                screen.style.backgroundColor = "#ffffff";
+                screen.style.color='black';
+                for (var i = 0; i < num.length; i++) {
+                    num[i].style.borderRadius='4px';
+                    num[i].style.backgroundColor='#dcdcdc';
+                    num[i].style.color='black';
+                }
+                for (var i = 0; i < opr.length; i++) {
+                    opr[i].style.borderRadius='4px';
+                    opr[i].style.backgroundColor='#434343';
+                }
+                clr.style.borderRadius='4px';
+                clr.style.backgroundColor='#b00000';
+                clr.style.color='white';
+            }
+        }
+    </script>
+</body>
+
+</html>
