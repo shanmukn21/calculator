@@ -8,6 +8,7 @@
     <title>Calculator</title>
     <style>
         body {
+            font-family: 'Franklin Gothic Medium';
             background-color: white;
             margin: 0;
             padding: 0;
@@ -15,15 +16,22 @@
 
         #mb {
             height: 100vh;
-            display: grid;
+            display: flex;
             gap: 0px;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
 
+        #top {
+            width: 325px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+        }
+
         #calc {
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             font-size: 30px;
             min-width: 325px;
             max-width: fit-content;
@@ -76,26 +84,31 @@
         }
 
         #clr {
-            display: grid;
-            margin-right: 15px;
-            justify-self: right;
+            display: flex;
+            flex-direction: row;
             background-color: rgb(25, 26, 28);
-            max-width: 40px;
+            max-width: 45px;
             max-height: 20px;
-            min-width: 40px;
+            min-width: 45px;
             min-height: 20px;
             border-radius: 30px;
             padding: 4px;
+            gap:0px;
+            justify-content: flex-start;
         }
 
-        #switch {
-            justify-self: right;
+        #switch,#mt {
+            margin: 2px;
             background-color: rgb(196, 125, 35);
             min-width: 20px;
             min-height: 20px;
             max-width: 20px;
             max-height: 20px;
             border-radius: 50%;
+        }
+        #mt{
+            display: none;
+            background-color: rgb(188, 188, 188);
         }
 
         .clr {
@@ -107,64 +120,55 @@
 
 <body id="mbody">
     <div id="mb">
-        <div id="clr" onclick="changet()">
-            <div id="switch"></div>
+        <div id="top">
+            <h1>Calculator</h1>
+            <div id="clr" onclick="changet()">
+                <div id="mt"></div>
+                <div id="switch"></div>
+            </div>
         </div>
+
         <div id="calc">
-                <div id="screen"></div>
+            <div id="screen"></div>
             <div>
-                <div class="num"
-                    onclick="screen.innerHTML+='7'">
+                <div class="num" onclick="screen.innerHTML+='7'">
                     7</div>
-                <div class="num"
-                    onclick="screen.innerHTML+='8'">
+                <div class="num" onclick="screen.innerHTML+='8'">
                     8</div>
-                <div class="num"
-                    onclick="screen.innerHTML+='9'">
+                <div class="num" onclick="screen.innerHTML+='9'">
                     9</div>
-                <div onclick="screen.innerHTML+='+'"
-                    class="opr">+</div>
+                <div onclick="screen.innerHTML+='+'" class="opr">+</div>
             </div>
             <div>
-                <div class="num"
-                    onclick="screen.innerHTML+='4'">
+                <div class="num" onclick="screen.innerHTML+='4'">
                     4</div>
-                <div class="num"
-                    onclick="screen.innerHTML+='5'">
+                <div class="num" onclick="screen.innerHTML+='5'">
                     5</div>
-                <div class="num"
-                    onclick="screen.innerHTML+='6'">
+                <div class="num" onclick="screen.innerHTML+='6'">
                     6</div>
-                <div onclick="screen.innerHTML+='-'"
-                    class="opr">-</div>
+                <div onclick="screen.innerHTML+='-'" class="opr">-</div>
             </div>
             <div>
-                <div class="num"
-                    onclick="screen.innerHTML+='1'">
+                <div class="num" onclick="screen.innerHTML+='1'">
                     1</div>
-                <div class="num"
-                    onclick="screen.innerHTML+='2'">
+                <div class="num" onclick="screen.innerHTML+='2'">
                     2</div>
-                <div class="num"
-                    onclick="screen.innerHTML+='3'">
+                <div class="num" onclick="screen.innerHTML+='3'">
                     3</div>
-                <div onclick="screen.innerHTML+='*'"
-                    class="opr">x</div>
+                <div onclick="screen.innerHTML+='*'" class="opr">x</div>
             </div>
             <div>
                 <div onclick="screen.innerHTML=''" class="clr">C</div>
-                <div class="num"
-                    onclick="screen.innerHTML+='0'">
+                <div class="num" onclick="screen.innerHTML+='0'">
                     0</div>
                 <div onclick="result()" class="opr eql">=</div>
-                <div onclick="screen.innerHTML+='/'"
-                    class="opr">/</div>
+                <div onclick="screen.innerHTML+='/'" class="opr">/</div>
             </div>
         </div>
     </div>
 
     <script>
-        screen=document.getElementById('screen');
+        screen = document.getElementById('screen');
         let n = 0;
         var opr = document.getElementsByClassName('opr');
         for (var i = 0; i < opr.length; i++) {
@@ -185,7 +189,7 @@
         eql.addEventListener('click', () => {
             n = 1;
         });
-        clr=document.querySelector('.clr');
+        clr = document.querySelector('.clr');
         function result() {
             try {
                 let result = eval(screen.innerHTML);
@@ -196,49 +200,52 @@
             }
         }
         mbody = document.getElementById("mbody");
-        sclr=document.getElementById('clr');
-        swtch=document.getElementById('switch');
+        sclr = document.getElementById('clr');
+        mt = document.getElementById('mt');
+        swtch = document.getElementById('switch');
         function changet() {
             if (mbody.style.backgroundColor === "rgb(66, 66, 66)") {
-                sclr.style.backgroundColor='rgb(25, 26, 28)';
-                swtch.style.justifySelf='right';
-                swtch.style.backgroundColor='rgb(196, 125, 35)';
+                sclr.style.backgroundColor = 'rgb(25, 26, 28)';
+                mt.style.display="none";
+                swtch.style.backgroundColor = 'rgb(196, 125, 35)';
                 mbody.style.backgroundColor = "white";
                 document.getElementById("calc").style.backgroundColor = "rgb(25, 26, 28)";
+                document.querySelector("h1").style.color = "black";
                 screen.style.backgroundColor = "rgb(25, 26, 28)";
-                screen.style.color='white';
+                screen.style.color = 'white';
                 for (var i = 0; i < num.length; i++) {
-                    num[i].style.borderRadius='50%';
-                    num[i].style.backgroundColor='rgb(60, 61, 63)';
-                    num[i].style.color='white';
+                    num[i].style.borderRadius = '50%';
+                    num[i].style.backgroundColor = 'rgb(60, 61, 63)';
+                    num[i].style.color = 'white';
                 }
                 for (var i = 0; i < opr.length; i++) {
-                    opr[i].style.borderRadius='50%';
-                    opr[i].style.backgroundColor='rgb(196, 125, 35)';
+                    opr[i].style.borderRadius = '50%';
+                    opr[i].style.backgroundColor = 'rgb(196, 125, 35)';
                 }
-                clr.style.borderRadius='50%';
-                clr.style.backgroundColor='rgb(129, 131, 133)';
-                clr.style.color='black';
+                clr.style.borderRadius = '50%';
+                clr.style.backgroundColor = 'rgb(129, 131, 133)';
+                clr.style.color = 'black';
             } else {
-                sclr.style.backgroundColor='rgb(188, 188, 188';
-                swtch.style.justifySelf='left';
-                swtch.style.backgroundColor='rgb(67, 67, 67)';
+                sclr.style.backgroundColor = 'rgb(188, 188, 188';
+                mt.style.display="block";
+                swtch.style.backgroundColor = 'rgb(67, 67, 67)';
                 mbody.style.backgroundColor = "rgb(66, 66, 66)";
                 document.getElementById("calc").style.backgroundColor = "#bcbcbc";
+                document.querySelector("h1").style.color = "white";
                 screen.style.backgroundColor = "#ffffff";
-                screen.style.color='black';
+                screen.style.color = 'black';
                 for (var i = 0; i < num.length; i++) {
-                    num[i].style.borderRadius='4px';
-                    num[i].style.backgroundColor='#dcdcdc';
-                    num[i].style.color='black';
+                    num[i].style.borderRadius = '4px';
+                    num[i].style.backgroundColor = '#dcdcdc';
+                    num[i].style.color = 'black';
                 }
                 for (var i = 0; i < opr.length; i++) {
-                    opr[i].style.borderRadius='4px';
-                    opr[i].style.backgroundColor='#434343';
+                    opr[i].style.borderRadius = '4px';
+                    opr[i].style.backgroundColor = '#434343';
                 }
-                clr.style.borderRadius='4px';
-                clr.style.backgroundColor='#b00000';
-                clr.style.color='white';
+                clr.style.borderRadius = '4px';
+                clr.style.backgroundColor = '#b00000';
+                clr.style.color = 'white';
             }
         }
     </script>
